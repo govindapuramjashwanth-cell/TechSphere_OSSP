@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OS Resource Management Simulator</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">OS</div><div><h1>OS Simulator</h1><span>Resource Management</span></div></div>
+      <nav id="nav">
+        <button class="nav-item active" data-page="dashboard">Dashboard</button>
+        <button class="nav-item" data-page="cpu">CPU Scheduling</button>
+        <button class="nav-item" data-page="memory">Memory Management</button>
+        <button class="nav-item" data-page="process">Process Management</button>
+        <button class="nav-item" data-page="banker">Banker's Algorithm</button>
+      </nav>
+      <div class="sidebar-footer">Team 5 · 2026–27<br>Operating Systems & Systems Programming</div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div><p class="eyebrow">WEB DASHBOARD</p><h2 id="page-title">OS Resource Management Simulator</h2></div><button id="reset-all" class="secondary-btn">Reset Demo</button></header>
+
+      <section id="dashboard" class="page active-page">
+        <div class="hero"><div><span class="pill">Interactive Simulator</span><h3>Explore core operating-system resource management concepts.</h3><p>Run CPU scheduling, memory allocation, process-state and deadlock-safety simulations directly in your browser.</p></div><div class="hero-icon">⚙</div></div>
+        <div class="stat-grid">
+          <div class="stat-card"><span>CPU Algorithms</span><strong>4</strong><small>FCFS · SJF · Priority · RR</small></div>
+          <div class="stat-card"><span>Memory Algorithms</span><strong>3</strong><small>First · Best · Worst Fit</small></div>
+          <div class="stat-card"><span>Process States</span><strong>5</strong><small>New · Ready · Running · Waiting · Terminated</small></div>
+          <div class="stat-card"><span>Deadlock Module</span><strong>Banker</strong><small>Safe / Unsafe state detection</small></div>
+        </div>
+        <div class="panel"><div class="panel-head"><div><h3>How to demonstrate</h3><p>Use the sidebar to open a module, enter values, and click Run.</p></div></div><div class="steps"><div><b>01</b><span>Choose an algorithm</span></div><div><b>02</b><span>Enter process/resource values</span></div><div><b>03</b><span>Run simulation</span></div><div><b>04</b><span>Explain results to faculty</span></div></div></div>
+      </section>
+
+      <section id="cpu" class="page">
+        <div class="section-intro"><span class="pill">CPU Scheduling</span><h3>Compare scheduling algorithms</h3><p>Enter arrival time, burst time and priority. For Round Robin, also set a time quantum.</p></div>
+        <div class="two-col">
+          <div class="panel"><div class="panel-head"><h3>Input</h3><button id="cpu-sample" class="text-btn">Load sample</button></div><div class="toolbar"><label>Algorithm<select id="cpu-alg"><option value="fcfs">FCFS</option><option value="sjf">SJF (Non-Preemptive)</option><option value="priority">Priority (Non-Preemptive)</option><option value="rr">Round Robin</option></select></label><label id="quantum-wrap">Time Quantum<input id="quantum" type="number" min="1" value="2"></label></div><div class="table-wrap"><table><thead><tr><th>Process</th><th>Arrival</th><th>Burst</th><th>Priority</th><th></th></tr></thead><tbody id="cpu-input"></tbody></table></div><button id="add-process" class="secondary-btn">+ Add Process</button><button id="run-cpu" class="primary-btn">Run CPU Simulation</button></div>
+          <div class="panel results"><div class="panel-head"><div><h3>Results</h3><span id="cpu-status" class="status neutral">Waiting for input</span></div></div><div id="cpu-metrics" class="metric-row"></div><div id="gantt" class="gantt"></div><div class="table-wrap"><table><thead><tr><th>Process</th><th>CT</th><th>TAT</th><th>WT</th><th>RT</th></tr></thead><tbody id="cpu-output"></tbody></table></div></div>
+        </div>
+      </section>
+
+      <section id="memory" class="page">
+        <div class="section-intro"><span class="pill">Memory Management</span><h3>First Fit, Best Fit and Worst Fit</h3><p>Enter memory block sizes and process memory requirements. The simulator shows allocation and utilization.</p></div>
+        <div class="two-col">
+          <div class="panel"><div class="panel-head"><h3>Input</h3><button id="memory-sample" class="text-btn">Load sample</button></div><label>Memory Blocks<input id="blocks" value="100, 500, 200, 300, 600"></label><label>Process Requests<input id="requests" value="212, 417, 112, 426"></label><label>Allocation Method<select id="memory-alg"><option value="first">First Fit</option><option value="best">Best Fit</option><option value="worst">Worst Fit</option></select></label><button id="run-memory" class="primary-btn">Run Memory Simulation</button></div>
+          <div class="panel results"><div class="panel-head"><h3>Allocation Results</h3><span id="memory-status" class="status neutral">Waiting for input</span></div><div id="memory-metrics" class="metric-row"></div><div class="table-wrap"><table><thead><tr><th>Process</th><th>Request</th><th>Allocated Block</th><th>Remaining</th><th>Status</th></tr></thead><tbody id="memory-output"></tbody></table></div></div>
+        </div>
+      </section>
+
+      <section id="process" class="page">
+        <div class="section-intro"><span class="pill">Process Management</span><h3>Visualize process states</h3><p>Click a process to move it through the classic operating-system process-state model.</p></div>
+        <div class="panel"><div class="process-controls"><button class="primary-btn" id="advance-process">Advance Selected Process</button><button class="secondary-btn" id="reset-process">Reset States</button></div><div id="process-cards" class="process-cards"></div><div class="state-flow"><span>NEW</span><i>→</i><span>READY</span><i>→</i><span>RUNNING</span><i>→</i><span>TERMINATED</span><br><small>RUNNING ↔ WAITING when a process waits for an event/resource.</small></div></div>
+      </section>
+
+      <section id="banker" class="page">
+        <div class="section-intro"><span class="pill">Resource Allocation</span><h3>Banker's Algorithm</h3><p>Enter Allocation, Maximum and Available resources. Need is calculated automatically as Maximum − Allocation.</p></div>
+        <div class="panel"><div class="panel-head"><h3>Input Matrices</h3><button id="banker-sample" class="text-btn">Load safe sample</button></div><div class="matrix-grid"><div><h4>Allocation Matrix</h4><textarea id="allocation" spellcheck="false">1 0 1\n1 1 0\n1 2 1\n0 0 2\n0 1 1</textarea></div><div><h4>Maximum Matrix</h4><textarea id="maximum" spellcheck="false">2 1 1\n2 1 1\n3 3 2\n1 1 2\n1 2 2</textarea></div><div><h4>Available Vector</h4><input id="available" value="2 1 1"></div></div><button id="run-banker" class="primary-btn">Check Safe State</button></div>
+        <div class="two-col banker-results"><div class="panel"><div class="panel-head"><h3>Need Matrix</h3></div><div id="need-output" class="matrix-output"></div></div><div class="panel"><div class="panel-head"><h3>Safety Result</h3><span id="banker-status" class="status neutral">Waiting for input</span></div><div id="banker-result" class="banker-result"></div></div></div>
+      </section>
+
+      <footer>OS Resource Management Simulator · Educational project · Runs locally in your browser</footer>
+    </main>
+  </div>
+  <script src="js/algorithms/cpu.js"></script>
+  <script src="js/algorithms/memory.js"></script>
+  <script src="js/algorithms/banker.js"></script>
+  <script src="js/algorithms/process.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
