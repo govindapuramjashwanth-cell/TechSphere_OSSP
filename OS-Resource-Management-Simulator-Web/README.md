@@ -100,3 +100,12 @@ OS-Resource-Management-Simulator-Web/
 ├── run_web.py                       # Local web server
 └── README.md
 ```
+
+
+
+
+
+
+<img width="1280" height="800" alt="Screenshot 2026-10-31 at 1 22 35 PM" src="https://github.com/user-attachments/assets/d0e771ff-a91a-4048-a521-7a6f3b001bd9" />
+<img width="1280" height="800" alt="Screenshot 2026-10-31 at 1 23 01 PM" src="https://github.com/user-attachments/assets/3bf122cd-8357-46a1-97c4-8ce892ff44cb" />
+
